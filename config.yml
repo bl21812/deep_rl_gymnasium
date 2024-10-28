@@ -1,0 +1,8 @@
+A2C:
+  hparam1: 6
+
+PPO:
+  hparam2: [1, 3]
+
+DQN:
+  hparam3: 'string'
