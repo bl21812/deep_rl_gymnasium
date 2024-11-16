@@ -81,7 +81,7 @@ def create_model_optuna(model_type, env, trial):
         hparams = {
             'learning_rate': trial.suggest_float('learning_rate', 1e-6, 1e-2),
             'buffer_size': trial.suggest_int('buffer_size', 1e3, 1e5),
-            'learning_starts': trial.suggest_int('learning_starts', 0, 10),  # TODO: CHANGE UPPER BOUND TO 1000 for actual training
+            'learning_starts': trial.suggest_int('learning_starts', 0, 1000),
             'batch_size': trial.suggest_int('batch_size', 4, 64),
             'gamma': trial.suggest_float('gamma', 0.5, 0.999),
             'train_freq': trial.suggest_int('train_freq', 1, 10),

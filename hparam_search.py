@@ -13,7 +13,7 @@ agents = ['A2C', 'PPO', 'DQN']
 ENV = envs[0]
 NUM_TRIALS = 10
 AGENT = agents[-1]
-TRAIN_TIMESTEPS = 100 # int(1e4)
+TRAIN_TIMESTEPS = int(1e4)
 
 agent_hparams = None
 with open("config.yml") as cfg:
