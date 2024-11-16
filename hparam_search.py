@@ -43,7 +43,7 @@ def run_optuna_trial(trial):
     model.learn(TRAIN_TIMESTEPS)
 
     # eval
-    return eval(model, env, trial)
+    return eval(model, env, trial=trial, model_type=AGENT)
 
 # run optuna study to for highest avg reward hparams
 study.optimize(run_optuna_trial, n_trials=NUM_TRIALS)
