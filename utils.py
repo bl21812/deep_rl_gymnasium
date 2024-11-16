@@ -59,7 +59,6 @@ def create_model(model_type, env, hparams):
         model = DQN('MlpPolicy', env,
             policy_kwargs=dict(net_arch=[256, 256]),
             gradient_steps=1,
-            verbose=1,
             tensorboard_log="highway_dqn/",
             **hparams)
 
