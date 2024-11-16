@@ -33,7 +33,7 @@ def eval(model, env, trial=None, runs=10, model_type=None):
             obs, reward, done, truncated, info = env.step(action)
             reward_history[-1].append(reward) 
 
-        runs += 1
+        runs_done += 1
         avg_rewards.append(sum(reward_history[-1]) / len(reward_history[-1]))
 
     # calculate average reward across all runs
