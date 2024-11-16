@@ -5,7 +5,7 @@ import numpy as np
 
 from stable_baselines3 import A2C, PPO, DQN
 
-def eval(model, env, trial=None, runs=10, model_type=None):
+def eval(model, env, trial=None, runs=10, model_type=None, env_type=None):
     '''
     Evaluate a model - run inference and return average reward
     
@@ -40,8 +40,8 @@ def eval(model, env, trial=None, runs=10, model_type=None):
     avg_run_reward = sum(avg_rewards) / len(avg_rewards)
 
     # if trial is passed - save results
-    if trial and model_type:
-        save_dir = os.path.join('val_results', model_type)
+    if trial and model_type and env_type:
+        save_dir = os.path.join('val_results', env_type, model_type)
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
         arr = make_ragged_array(reward_history)

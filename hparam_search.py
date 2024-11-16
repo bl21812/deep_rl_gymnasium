@@ -11,7 +11,7 @@ envs = ['highway-fast-v0', 'intersection-v0', 'racetrack-v0']
 agents = ['A2C', 'PPO', 'DQN']
 
 ENV = envs[0]
-NUM_TRIALS = 10
+NUM_TRIALS = 20
 AGENT = agents[-1]
 TRAIN_TIMESTEPS = int(1e4)
 
@@ -43,7 +43,7 @@ def run_optuna_trial(trial):
     model.learn(TRAIN_TIMESTEPS)
 
     # eval
-    return eval(model, env, trial=trial, model_type=AGENT)
+    return eval(model, env, trial=trial, model_type=AGENT, env_type=ENV)
 
 # run optuna study to for highest avg reward hparams
 study.optimize(run_optuna_trial, n_trials=NUM_TRIALS)
