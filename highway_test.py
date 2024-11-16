@@ -37,10 +37,38 @@ model.save("highway_dqn/model")'''
 # Load and test saved model
 # This plays a nice little animation
 model = DQN.load("highway_dqn/model")
-while True:
+
+runs = 0
+crashes = 0
+reward_history = []
+
+while runs < 10:
   done = truncated = False
   obs, info = env.reset()
+
+  # RUNS THROUGH A SCENARIO - sum reward to get return or smth (avg? weighted avg?)
+  reward_history.append([])
   while not (done or truncated):
     action, _states = model.predict(obs, deterministic=True)
     obs, reward, done, truncated, info = env.step(action)
-    env.render()
+    '''print(obs)
+    print(reward)
+    print(done)
+    print(truncated)
+    print(info)
+    input()'''
+
+    reward_history[-1].append(reward) 
+
+    if info['crashed']:
+       crashes += 1
+
+    # env.render()
+
+  runs += 1
+
+print(runs)
+print(crashes)
+
+for i in range(runs):
+  print(reward_history[i])
