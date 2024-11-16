@@ -13,7 +13,7 @@ agents = ['A2C', 'PPO', 'DQN']
 ENV = envs[0]
 NUM_TRIALS = 10
 AGENT = agents[-1]
-TRAIN_TIMESTEPS = int(1e4)
+TRAIN_TIMESTEPS = 100 # int(1e4)
 
 agent_hparams = None
 with open("config.yml") as cfg:
@@ -32,7 +32,6 @@ study = optuna.create_study(
     pruner=optuna.pruners.HyperbandPruner()
 )
 
-# TODO: SAVE MODEL while running trial (compare to best?)
 # optuna run trial function (including eval)
 def run_optuna_trial(trial):
 
@@ -44,8 +43,13 @@ def run_optuna_trial(trial):
     model.learn(TRAIN_TIMESTEPS)
 
     # eval
-    return eval(model, env)
+    return eval(model, env, trial)
 
 # run optuna study to for highest avg reward hparams
-# TODO: OBJ FUNCTION must only take in trial as param (should run the whole thing)
 study.optimize(run_optuna_trial, n_trials=NUM_TRIALS)
+
+# Print the params of the most optimal study
+print(f"Optimal Values Found in {NUM_TRIALS} trials:")
+print("-------------------------------------------------")
+for param, optimum_val in study.best_trial.params.items():
+  print(f"{param} : {optimum_val}")
