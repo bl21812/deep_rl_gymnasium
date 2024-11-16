@@ -44,7 +44,7 @@ def eval(model, env, trial=None, runs=10, model_type=None):
         save_dir = os.path.join('val_results', model_type)
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
-        arr = np.array(reward_history)
+        arr = make_ragged_array(reward_history)
         np.save(os.path.join(save_dir, f'{trial.number}.npy'), arr)
 
     return avg_run_reward
@@ -96,3 +96,14 @@ def create_model_optuna(model_type, env, trial):
         model = None
 
     return model
+
+
+def make_ragged_array(lists):
+
+    max_length = max([len(l) for l in lists])
+    arr = np.zeros((len(lists), max_length))
+
+    for i in range(len(lists)):
+        arr[i] = lists[i] + ([0] * (max_length - len(lists[i])))
+
+    return arr
