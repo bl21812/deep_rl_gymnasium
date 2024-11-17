@@ -1,7 +1,7 @@
 import yaml
 
 import optuna
-import gymnasium
+import gymnasium as gym
 import highway_env
 from stable_baselines3 import A2C, PPO, DQN
 
@@ -23,7 +23,7 @@ with open("config.yml") as cfg:
         raise RuntimeError(err)
     
 # create environment
-env = gymnasium.make(ENV, render_mode='rgb_array')
+env = gym.make(ENV, render_mode='rgb_array')
     
 # create study using the TPESampler.
 study = optuna.create_study(
