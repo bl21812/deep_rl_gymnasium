@@ -11,7 +11,7 @@ from utils import eval, create_model_optuna
 
 agents = ['A2C', 'PPO', 'DQN']
 
-ENV = 'racetrack-fast-v0'
+ENV = 'racetrack-v0'
 NUM_TRIALS = 20
 AGENT = agents[-1]
 TRAIN_TIMESTEPS = int(1e4)
