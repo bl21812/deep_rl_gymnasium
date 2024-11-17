@@ -3,3 +3,4 @@
 highway_dqn/*
 __pycache__/*
 val_results/*
+results/*
