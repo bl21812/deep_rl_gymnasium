@@ -24,7 +24,7 @@ with open("config.yml") as cfg:
         raise RuntimeError(err)
     
 # create environment
-env = make_vec_env(ENV)
+env = make_vec_env(ENV, n_envs=2, vec_env_cls=SubprocVecEnv)
     
 # create study using the TPESampler.
 study = optuna.create_study(
