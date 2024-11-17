@@ -11,7 +11,7 @@ from utils import eval, create_model_optuna
 
 agents = ['A2C', 'PPO', 'DQN']
 
-ENV = 'racetrack-v0'
+ENV = 'racetrack-fast-v0'
 NUM_TRIALS = 20
 AGENT = agents[-1]
 TRAIN_TIMESTEPS = int(1e4)
@@ -26,7 +26,7 @@ with open("config.yml") as cfg:
 if __name__ == '__main__':
 
     # create environment
-    env = highway_env.envs.RacetrackEnv()
+    env = gym.make(ENV)
         
     # create study using the TPESampler.
     study = optuna.create_study(
