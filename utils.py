@@ -66,8 +66,8 @@ def create_model(model_type, env, hparams, env_type=None):
         model = PPO('MlpPolicy', env, 
             policy_kwargs=dict(net_arch=[dict(pi=[256, 256], vf=[256, 256])]),
             tensorboard_log=f"{env_type}_{model_type}/",
-            **hparams
-        )
+            device='cpu',
+            **hparams)
 
     elif model_type == 'A2C':
         model = None
