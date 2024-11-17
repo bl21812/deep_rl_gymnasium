@@ -3,7 +3,6 @@ import yaml
 import optuna
 import gymnasium as gym
 import highway_env
-from stable_baselines3 import A2C, PPO, DQN
 
 from utils import eval, create_model_optuna
 
