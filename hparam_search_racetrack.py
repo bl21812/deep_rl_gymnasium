@@ -23,34 +23,36 @@ with open("config.yml") as cfg:
     except yaml.YAMLError as err:
         raise RuntimeError(err)
     
-# create environment
-env = make_vec_env(ENV, n_envs=2, vec_env_cls=SubprocVecEnv)
-    
-# create study using the TPESampler.
-study = optuna.create_study(
-    direction="maximize",
-    sampler=optuna.samplers.TPESampler(),
-    pruner=optuna.pruners.HyperbandPruner()
-)
+if __name__ == '__main__':
 
-# optuna run trial function (including eval)
-def run_optuna_trial(trial):
+    # create environment
+    env = make_vec_env(ENV, vec_env_cls=SubprocVecEnv)
+        
+    # create study using the TPESampler.
+    study = optuna.create_study(
+        direction="maximize",
+        sampler=optuna.samplers.TPESampler(),
+        pruner=optuna.pruners.HyperbandPruner()
+    )
 
-    # initialize
-    env.reset()
-    model = create_model_optuna(model_type=AGENT, env=env, trial=trial, env_type=ENV)
+    # optuna run trial function (including eval)
+    def run_optuna_trial(trial):
 
-    # train
-    model.learn(TRAIN_TIMESTEPS)
+        # initialize
+        env.reset()
+        model = create_model_optuna(model_type=AGENT, env=env, trial=trial, env_type=ENV)
 
-    # eval
-    return eval(model, env, trial=trial, model_type=AGENT, env_type=ENV)
+        # train
+        model.learn(TRAIN_TIMESTEPS)
 
-# run optuna study to for highest avg reward hparams
-study.optimize(run_optuna_trial, n_trials=NUM_TRIALS)
+        # eval
+        return eval(model, env, trial=trial, model_type=AGENT, env_type=ENV)
 
-# Print the params of the most optimal study
-print(f"Optimal Values Found in {NUM_TRIALS} trials:")
-print("-------------------------------------------------")
-for param, optimum_val in study.best_trial.params.items():
-  print(f"{param} : {optimum_val}")
+    # run optuna study to for highest avg reward hparams
+    study.optimize(run_optuna_trial, n_trials=NUM_TRIALS)
+
+    # Print the params of the most optimal study
+    print(f"Optimal Values Found in {NUM_TRIALS} trials:")
+    print("-------------------------------------------------")
+    for param, optimum_val in study.best_trial.params.items():
+        print(f"{param} : {optimum_val}")
