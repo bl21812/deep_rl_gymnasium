@@ -50,7 +50,7 @@ def eval(model, env, trial=None, runs=10, model_type=None, env_type=None):
     return avg_run_reward
 
 
-def create_model(model_type, env, hparams):
+def create_model(model_type, env, hparams, env_type=None):
     '''
     Create a Stable baselines model
     '''
@@ -59,7 +59,7 @@ def create_model(model_type, env, hparams):
         model = DQN('MlpPolicy', env,
             policy_kwargs=dict(net_arch=[256, 256]),
             gradient_steps=1,
-            tensorboard_log="highway_dqn/",
+            tensorboard_log=f"{env_type}_{model_type}/",
             **hparams)
 
     elif model_type == 'PPO':
@@ -72,7 +72,7 @@ def create_model(model_type, env, hparams):
 
 
 # TODO: ADD HPARAM RANGES HERE !!
-def create_model_optuna(model_type, env, trial):
+def create_model_optuna(model_type, env, trial, env_type=None):
     '''
     Create a Stable baselines model with hparams suggested by Optuna
     '''
@@ -87,7 +87,7 @@ def create_model_optuna(model_type, env, trial):
             'train_freq': trial.suggest_int('train_freq', 1, 10),
             'target_update_interval': trial.suggest_int('target_update_interval', 25, 100),
         }
-        model = create_model(model_type, env, hparams)
+        model = create_model(model_type, env, hparams, env_type=env_type)
 
     elif model_type == 'PPO':
         model = None

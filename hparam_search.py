@@ -37,7 +37,7 @@ def run_optuna_trial(trial):
 
     # initialize
     env.reset()
-    model = create_model_optuna(model_type=AGENT, env=env, trial=trial)
+    model = create_model_optuna(model_type=AGENT, env=env, trial=trial, env_type=ENV)
 
     # train
     model.learn(TRAIN_TIMESTEPS)
