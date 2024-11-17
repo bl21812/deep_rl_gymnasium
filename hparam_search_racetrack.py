@@ -26,7 +26,7 @@ with open("config.yml") as cfg:
 if __name__ == '__main__':
 
     # create environment
-    env = make_vec_env(ENV, vec_env_cls=SubprocVecEnv)
+    env = highway_env.envs.RacetrackEnv()
         
     # create study using the TPESampler.
     study = optuna.create_study(
