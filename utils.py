@@ -93,11 +93,12 @@ def create_model_optuna(model_type, env, trial, env_type=None):
         }
         
     elif model_type == 'PPO':
+        batch_size = trial.suggest_int('batch_size', 4, 64)
         hparams = {
             'learning_rate': trial.suggest_float('learning_rate', 1e-6, 1e-2),
-            'n_steps': trial.suggest_int('n_steps', 4, 512),
+            'n_steps': batch_size * trial.suggest_int('n_steps_multiplier', 1, 8),  # keep as multiplier of batch size to avoid truncation
             'n_epochs': trial.suggest_int('n_epochs', 2, 50),
-            'batch_size': trial.suggest_int('batch_size', 4, 64),
+            'batch_size': batch_size,
             'gamma': trial.suggest_float('gamma', 0.5, 0.999),
         }
 
