@@ -3,8 +3,7 @@
 import os
 import numpy as np
 
-# from stable_baselines3 import A2C, PPO, DQN
-from sb3_contrib import A2C, PPO, DQN
+from stable_baselines3 import A2C, PPO, DQN
 
 def eval(model, env, trial=None, runs=10, model_type=None, env_type=None):
     '''
