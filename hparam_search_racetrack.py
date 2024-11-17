@@ -1,4 +1,4 @@
-# DQN RACETRACK STILL DOESNT WORK
+# NOT NEEDED - doesn't seem like DQN is compatible with racetrack
 
 import yaml
 
