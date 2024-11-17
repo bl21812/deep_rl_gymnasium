@@ -7,7 +7,7 @@ from stable_baselines3 import A2C, PPO, DQN
 
 from utils import eval, create_model_optuna
 
-envs = ['highway-fast-v0', 'intersection-v1', 'racetrack-v0']
+envs = ['highway-fast-v0', 'intersection-v0', 'racetrack-v0']
 agents = ['A2C', 'PPO', 'DQN']
 
 ENV = envs[1]
