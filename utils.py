@@ -63,7 +63,11 @@ def create_model(model_type, env, hparams, env_type=None):
             **hparams)
 
     elif model_type == 'PPO':
-        model = None
+        model = PPO('MlpPolicy', env, 
+            policy_kwargs=dict(net_arch=[dict(pi=[256, 256], vf=[256, 256])]),
+            tensorboard_log=f"{env_type}_{model_type}/",
+            **hparams
+        )
 
     elif model_type == 'A2C':
         model = None
@@ -87,13 +91,20 @@ def create_model_optuna(model_type, env, trial, env_type=None):
             'train_freq': trial.suggest_int('train_freq', 1, 10),
             'target_update_interval': trial.suggest_int('target_update_interval', 25, 100),
         }
-        model = create_model(model_type, env, hparams, env_type=env_type)
-
+        
     elif model_type == 'PPO':
-        model = None
+        hparams = {
+            'learning_rate': trial.suggest_float('learning_rate', 1e-6, 1e-2),
+            'n_steps': trial.suggest_int('n_steps', 4, 512),
+            'n_epochs': trial.suggest_int('n_epochs', 2, 50),
+            'batch_size': trial.suggest_int('batch_size', 4, 64),
+            'gamma': trial.suggest_float('gamma', 0.5, 0.999),
+        }
 
     elif model_type == 'A2C':
         model = None
+
+    model = create_model(model_type, env, hparams, env_type=env_type)
 
     return model
 

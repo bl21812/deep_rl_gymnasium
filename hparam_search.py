@@ -9,9 +9,9 @@ from utils import eval, create_model_optuna
 envs = ['highway-fast-v0', 'intersection-v0', 'racetrack-v0']
 agents = ['A2C', 'PPO', 'DQN']
 
-ENV = envs[2]
+ENV = envs[1]
 NUM_TRIALS = 20
-AGENT = agents[-1]
+AGENT = agents[1]
 TRAIN_TIMESTEPS = int(1e4)
 
 agent_hparams = None
