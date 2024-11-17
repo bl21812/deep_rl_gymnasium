@@ -27,7 +27,6 @@ if __name__ == '__main__':
 
     # create environment
     env = gym.make(ENV)
-    print(type(env.action_space))
         
     # create study using the TPESampler.
     study = optuna.create_study(
