@@ -1,5 +1,7 @@
-.env/*
-.git/*
+.env/
+env/
+.git/
+.direnv/
 highway_dqn/*
 __pycache__/*
 val_results/*
