@@ -61,7 +61,7 @@ while runs < 10:
     reward_history[-1].append(reward) 
 
     if info['crashed']:
-       crashes += 1
+        crashes += 1
 
     # env.render()
 

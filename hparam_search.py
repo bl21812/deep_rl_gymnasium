@@ -7,11 +7,12 @@ import highway_env
 from utils import eval, create_model_optuna
 
 envs = ['highway-fast-v0', 'intersection-v0', 'racetrack-v0']
-agents = ['A2C', 'PPO', 'DQN']
+agents = ['A2C', 'PPO', 'DQN']  # Removed SAC as it only works with continuous action spaces
 
-ENV = envs[0]
 NUM_TRIALS = 20
+ENV = envs[2]
 AGENT = agents[1]
+
 TRAIN_TIMESTEPS = int(1e4)
 
 agent_hparams = None
@@ -51,4 +52,4 @@ study.optimize(run_optuna_trial, n_trials=NUM_TRIALS)
 print(f"Optimal Values Found in {NUM_TRIALS} trials:")
 print("-------------------------------------------------")
 for param, optimum_val in study.best_trial.params.items():
-  print(f"{param} : {optimum_val}")
+    print(f"{param} : {optimum_val}")
