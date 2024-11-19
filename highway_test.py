@@ -1,21 +1,12 @@
 # NOTE: docs here https://highway-env.farama.org/quickstart/
 # NOTE: env setup works as per the 'open in colab' notebooks from the link above
 
-import yaml
-
 import gymnasium
 import highway_env
 from stable_baselines3 import A2C, PPO, DQN
 
 envs = ['highway-fast-v0', 'intersection-v0', 'racetrack-v0']
 agents = ['A2C', 'PPO', 'DQN']
-
-agent_hparams = None
-with open("config.yml") as cfg:
-    try:
-        agent_hparams = yaml.safe_load(cfg)
-    except yaml.YAMLError as err:
-        raise RuntimeError(err)
 
 # ----- SAMPLE CODE FROM HIGHWAY-ENV DOCS -----
 env = gymnasium.make("highway-fast-v0", render_mode='rgb_array')

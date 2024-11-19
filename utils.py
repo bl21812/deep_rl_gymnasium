@@ -95,7 +95,6 @@ def create_model(model_type, env, hparams, env_type=None):
     return model
 
 
-# TODO: ADD HPARAM RANGES HERE !!
 def create_model_optuna(model_type, env, trial, env_type=None):
     '''
     Create a Stable baselines model with hparams suggested by Optuna
@@ -115,7 +114,6 @@ def create_model_optuna(model_type, env, trial, env_type=None):
             'exploration_initial_eps': trial.suggest_float('exploration_initial_eps', 0.8, 1.0),
             'exploration_final_eps': trial.suggest_float('exploration_final_eps', 0.01, 0.1),
         }
-        
     elif model_type == 'PPO':
         batch_size = trial.suggest_int('batch_size', 32, 256)
         hparams = {
@@ -166,6 +164,9 @@ def create_model_optuna(model_type, env, trial, env_type=None):
 
 
 def make_ragged_array(lists):
+    '''
+    Created a 'ragged array' using zero padding
+    '''
 
     max_length = max([len(l) for l in lists])
     arr = np.zeros((len(lists), max_length))

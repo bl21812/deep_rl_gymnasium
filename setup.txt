@@ -1,5 +1,4 @@
 1. pip install highway-env
 2. pip install git+https://github.com/DLR-RM/stable-baselines3
-3. pip install pyyaml
 4. pip install tensorboard
 5. pip install optuna

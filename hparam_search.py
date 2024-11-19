@@ -1,26 +1,18 @@
-import yaml
-
 import optuna
 import gymnasium as gym
 import highway_env
 
 from utils import eval, create_model_optuna
 
+# NOTE: DQN does not work with racetrack, and SAC only works with racetrack
 envs = ['highway-fast-v0', 'intersection-v0', 'racetrack-v0']
-agents = ['A2C', 'PPO', 'DQN']  # Removed SAC as it only works with continuous action spaces
+agents = ['A2C', 'PPO', 'DQN', 'SAC']
 
 NUM_TRIALS = 20
-ENV = envs[2]
-AGENT = agents[1]
+ENV = envs[0]
+AGENT = agents[0]
 
 TRAIN_TIMESTEPS = int(1e4)
-
-agent_hparams = None
-with open("config.yml") as cfg:
-    try:
-        agent_hparams = yaml.safe_load(cfg)
-    except yaml.YAMLError as err:
-        raise RuntimeError(err)
     
 # create environment
 env = gym.make(ENV, render_mode='rgb_array')
